@@ -12,6 +12,8 @@ import LockIcon from "../../components/icon.lock";
 import AuthSubmitButton from "../../components/auth.button.submit";
 import AuthFacebookButton from "../../components/auth.button.facebook";
 import AuthGoogleButton from "../../components/auth.button.google";
+import {TouchableWithoutFeedback} from "react-native";
+import colors from "../../utilities/branding/colors";
 
 const StyledSafeAreaView = styled.KeyboardAvoidingView`
     justify-content: center;
@@ -22,6 +24,17 @@ const StyledSafeAreaView = styled.KeyboardAvoidingView`
 const SubmitButtons = styled.View`
     flex-direction: row;
     margin-top: 50px;
+`
+
+const Footer = styled.View`
+`
+
+const FooterLink = styled.Text`
+    text-align: center;
+    font-family: Nunito-Light;
+    font-size: 16px;
+    color: ${colors.gray};
+    text-decoration: underline;
 `
 
 class AuthSignupScreen extends React.Component {
@@ -58,6 +71,11 @@ class AuthSignupScreen extends React.Component {
                         }}
                     </Formik>
                 </AuthForm>
+                <Footer>
+                    <TouchableWithoutFeedback>
+                        <FooterLink>I'm already a MaiSeller</FooterLink>
+                    </TouchableWithoutFeedback>
+                </Footer>
             </StyledSafeAreaView>
         )
     }
