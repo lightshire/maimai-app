@@ -9,11 +9,19 @@ import AuthInputText from "../../components/auth.input";
 import UserIcon from "../../components/icon.user";
 import PhoneIcon from "../../components/icon.phone";
 import LockIcon from "../../components/icon.lock";
+import AuthSubmitButton from "../../components/auth.button.submit";
+import AuthFacebookButton from "../../components/auth.button.facebook";
+import AuthGoogleButton from "../../components/auth.button.google";
 
 const StyledSafeAreaView = styled.KeyboardAvoidingView`
     justify-content: center;
     align-items: center;
     flex: 1;
+`
+
+const SubmitButtons = styled.View`
+    flex-direction: row;
+    margin-top: 50px;
 `
 
 class AuthSignupScreen extends React.Component {
@@ -40,6 +48,11 @@ class AuthSignupScreen extends React.Component {
                                     <AuthInputText inputProps={{ value: props.values.name, placeholder: "Name" }} icon={<UserIcon />} />
                                     <AuthInputText inputProps={{ value: props.values.name, placeholder: "Mobile No" }} icon={<PhoneIcon />} />
                                     <AuthInputText inputProps={{ value: props.values.name, placeholder: "Password" }} icon={<LockIcon />} />
+                                    <SubmitButtons>
+                                        <AuthSubmitButton />
+                                        <AuthFacebookButton />
+                                        <AuthGoogleButton />
+                                    </SubmitButtons>
                                 </>
                             )
                         }}
