@@ -11,6 +11,7 @@
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
 #import <ReactNativeNavigation/ReactNativeNavigation.h>
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
 
 @implementation AppDelegate
 
@@ -20,6 +21,15 @@
   [ReactNativeNavigation bootstrap:jsCodeLocation launchOptions:launchOptions];
 
   return YES;
+}
+
+- (BOOL)application:(UIApplication *)application
+            openURL:(NSURL *)url
+            options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
+
+  BOOL handled =  [[FBSDKApplicationDelegate sharedInstance] application:application openURL:url options:options];
+  // Add any custom logic here.
+  return handled;
 }
 
 - (NSURL *)sourceURLForBridge:(RCTBridge *)bridge

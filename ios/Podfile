@@ -36,6 +36,7 @@ target 'maimai' do
 
   pod 'ReactNativeNavigation', :path => '../node_modules/react-native-navigation'
   pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
+  pod 'react-native-fbsdk', :path => '../node_modules/react-native-fbsdk'
 
   target 'maimaiTests' do
     inherit! :search_paths

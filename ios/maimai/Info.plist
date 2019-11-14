@@ -77,5 +77,25 @@
 		<string>Nunito-SemiBold.ttf</string>
 		<string>Nunito-SemiBoldItalic.ttf</string>
 	</array>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>fb548501139270101</string>
+			</array>
+		</dict>
+	</array>
+	<key>FacebookAppID</key>
+	<string>548501139270101</string>
+	<key>FacebookDisplayName</key>
+	<string>MaiMai</string>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>fbapi</string>
+		<string>fb-messenger-share-api</string>
+		<string>fbauth2</string>
+		<string>fbshareextension</string>
+	</array>
 </dict>
 </plist>
