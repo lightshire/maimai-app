@@ -15,7 +15,7 @@ const Button = styled.View`
 class AuthGoogleButton extends React.Component {
     render() {
         return (
-            <TouchableWithoutFeedback>
+            <TouchableWithoutFeedback disabled>
                 <Button>
                     <AntDesign name={"google"} size={30} color={"#fff"}/>
                 </Button>
