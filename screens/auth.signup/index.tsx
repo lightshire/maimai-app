@@ -12,8 +12,9 @@ import LockIcon from "../../components/icon.lock";
 import AuthSubmitButton from "../../components/auth.button.submit";
 import AuthFacebookButton from "../../components/auth.button.facebook";
 import AuthGoogleButton from "../../components/auth.button.google";
-import {TouchableWithoutFeedback} from "react-native";
+import {ActivityIndicator, TouchableWithoutFeedback} from "react-native";
 import colors from "../../utilities/branding/colors";
+import loginByFacebook from "../../utilities/requests/loginByFacebook";
 
 const StyledSafeAreaView = styled.KeyboardAvoidingView`
     justify-content: center;
@@ -37,16 +38,22 @@ const FooterLink = styled.Text`
     text-decoration: underline;
 `
 
+interface Values {
+    name: string,
+    phone_number: string,
+    password: string,
+    source: string,
+    email: string
+}
+
 class AuthSignupScreen extends React.Component {
-
-    handleSubmit = () => {
-
-    }
 
     initialValues = {
         name: "",
-        mobile_number: "",
-        password: ""
+        phone_number: "",
+        password: "",
+        source: "api",
+        email: ""
     }
 
     render() {
@@ -54,16 +61,35 @@ class AuthSignupScreen extends React.Component {
             <StyledSafeAreaView enabled behavior={"padding"}>
                 <AuthHeader headerText={"Sign Up"} subText={"Sell Products to your friends and generate earnings. Register using your facebook and google account for an easier set up"} />
                 <AuthForm>
-                    <Formik initialValues={this.initialValues} onSubmit={this.handleSubmit}>
+                    <Formik
+                        initialValues={this.initialValues}
+                        onSubmit={async (values: Values, actions) => {
+                            actions.setSubmitting(true)
+                            const data = await loginByFacebook(values)
+                            console.log(data.data)
+                        }}
+                    >
                         {(props) => {
                             return (
                                 <>
+                                {!props.isSubmitting ? <>
                                     <AuthInputText inputProps={{ value: props.values.name, placeholder: "Name" }} icon={<UserIcon />} />
-                                    <AuthInputText inputProps={{ value: props.values.name, placeholder: "Mobile No" }} icon={<PhoneIcon />} />
-                                    <AuthInputText inputProps={{ value: props.values.name, placeholder: "Password" }} icon={<LockIcon />} />
+                                    <AuthInputText inputProps={{ value: props.values.phone_number, placeholder: "Mobile No" }} icon={<PhoneIcon />} />
+                                    <AuthInputText inputProps={{ value: props.values.password, placeholder: "Password" }} icon={<LockIcon />} />
+                                    </> : <ActivityIndicator />}
                                     <SubmitButtons>
                                         <AuthSubmitButton />
-                                        <AuthFacebookButton onFinished={() => {}} onLoggingIn={() => {}} />
+                                        <AuthFacebookButton
+                                            onFinished={(result: any) => {
+                                                props.setFieldValue('name', result.name)
+                                                props.setFieldValue('email', result.email)
+                                                props.setFieldValue('source', "facebook")
+                                                props.submitForm()
+                                            }}
+                                            onLoggingIn={() => {
+
+                                            }}
+                                        />
                                         <AuthGoogleButton />
                                     </SubmitButtons>
                                 </>

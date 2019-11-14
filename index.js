@@ -6,6 +6,9 @@ import { Navigation } from "react-native-navigation";
 import screens from "./screens"
 import App from './App';
 
+if(__DEV__) {
+    import('./utilities/reactotron').then(() => console.log('Reactotron Configured'))
+}
 Navigation.registerComponent(`navigation.playground.WelcomeScreen`, () => App);
 
 
