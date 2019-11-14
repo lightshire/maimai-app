@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from "styled-components/native";
 import FontAwesome5Icon from "react-native-vector-icons/FontAwesome5";
-import {TouchableWithoutFeedback} from "react-native";
+import {TouchableWithoutFeedback, ActivityIndicator} from "react-native";
 import {AccessToken, GraphRequest, GraphRequestManager, LoginManager} from 'react-native-fbsdk'
 
 
@@ -17,14 +17,19 @@ const Button = styled.View`
 `
 
 interface Props {
-
+    onLoggingIn: () => any,
+    onFinished: (data: any) => any
 }
 
 interface State {
-
+    isLoading: boolean
 }
 
 class AuthFacebookButton extends React.Component<Props, State> {
+
+    state = {
+        isLoading: false
+    }
 
     getDataFromFacebook = async (fields: string, callback: Function) => {
         const accessData = await AccessToken.getCurrentAccessToken();
@@ -47,6 +52,8 @@ class AuthFacebookButton extends React.Component<Props, State> {
 
     handleOnPress = async () => {
         try {
+            this.props.onLoggingIn();
+            this.setState({ isLoading: true })
             const result = await LoginManager.logInWithPermissions(['public_profile', 'email'])
             this.getDataFromFacebook('id, email, picture.type(large), name', this.handleFacebookDataFinished)
         }catch(e) {
@@ -55,14 +62,15 @@ class AuthFacebookButton extends React.Component<Props, State> {
     }
 
     handleFacebookDataFinished = (error: any, result: any) => {
-        console.log(result)
+        this.props.onFinished(result)
+        this.setState({ isLoading: false })
     }
 
     render() {
         return (
             <TouchableWithoutFeedback onPress={this.handleOnPress}>
                 <Button>
-                    <FontAwesome5Icon name={"facebook-f"} size={30} color={"#fff"}/>
+                    {this.state.isLoading ? <ActivityIndicator color={"#fff"} /> : <FontAwesome5Icon name={"facebook-f"} size={30} color={"#fff"}/>}
                 </Button>
             </TouchableWithoutFeedback>
         )

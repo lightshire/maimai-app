@@ -63,7 +63,7 @@ class AuthSignupScreen extends React.Component {
                                     <AuthInputText inputProps={{ value: props.values.name, placeholder: "Password" }} icon={<LockIcon />} />
                                     <SubmitButtons>
                                         <AuthSubmitButton />
-                                        <AuthFacebookButton />
+                                        <AuthFacebookButton onFinished={() => {}} onLoggingIn={() => {}} />
                                         <AuthGoogleButton />
                                     </SubmitButtons>
                                 </>
