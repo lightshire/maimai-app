@@ -8,6 +8,12 @@ const Container = styled.View`
     background: #fff;
     align-items: center;
     justify-content: center;
+    shadow-color: rgba(233, 35, 58, 0.16);
+    shadow-offset: 0 12px;
+    shadow-opacity: 0.58;
+    shadow-radius: 16px;
+    elevation: 24;    
+    margin-bottom: 24px;
 `
 
 const Image = styled.Image`
