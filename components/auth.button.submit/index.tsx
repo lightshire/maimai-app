@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from "styled-components/native";
 import colors from "../../utilities/branding/colors";
-import {TouchableWithoutFeedback} from "react-native";
+import {ActivityIndicator, TouchableWithoutFeedback} from "react-native";
 
 const Button = styled.View`
     background: ${colors.maired};
@@ -19,12 +19,17 @@ const Text = styled.Text`
     letter-spacing: 2px;
 `
 
-class AuthSubmitButton extends React.Component {
+interface Props {
+    isLoading: boolean,
+    onPress: any
+}
+
+class AuthSubmitButton extends React.Component<Props> {
     render() {
         return (
-            <TouchableWithoutFeedback>
+            <TouchableWithoutFeedback disabled={this.props.isLoading} onPress={this.props.onPress}>
                 <Button>
-                    <Text>Sign Up</Text>
+                    {!this.props.isLoading ? <Text>Sign Up</Text> : <ActivityIndicator color={"#fff"} />}
                 </Button>
             </TouchableWithoutFeedback>
         )
