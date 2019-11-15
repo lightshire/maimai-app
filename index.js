@@ -5,6 +5,7 @@
 import { Navigation } from "react-native-navigation";
 import screens from "./screens"
 import App from './App';
+import AsyncStorage from '@react-native-community/async-storage'
 
 if(__DEV__) {
     import('./utilities/reactotron').then(() => console.log('Reactotron Configured'))
@@ -17,7 +18,13 @@ screens.forEach(screen => {
 })
 
 
-Navigation.events().registerAppLaunchedListener(() => {
+Navigation.events().registerAppLaunchedListener(async () => {
+
+    const data = await AsyncStorage.getItem('@access_token')
+    const isVerified = await AsyncStorage.getItem('@is_verified')
+
+    const component = !data ? "auth.signup" : (isVerified ? "app.home" : "auth.otp");
+
     Navigation.setRoot({
         root: {
             stack: {
@@ -29,8 +36,7 @@ Navigation.events().registerAppLaunchedListener(() => {
                 children: [
                     {
                         component: {
-                            id: "auth.signup",
-                            name: "auth.signup"
+                            name: component
                         }
                     }
                 ]
