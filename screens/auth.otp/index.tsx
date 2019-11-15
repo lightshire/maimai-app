@@ -2,6 +2,7 @@ import React from 'react'
 import styled from "styled-components/native";
 import Logo from "./Logo";
 import AuthHeader from "../../components/auth.header";
+import OTPNumbers from "../../components/auth.otp.numbers";
 
 const SafeAreaView = styled.SafeAreaView`
     align-items: center;
@@ -15,6 +16,7 @@ class AuthOTPScreen extends React.Component {
             <SafeAreaView>
                 <Logo />
                 <AuthHeader headerText={"Verify Number"} subText={"You will receive an SMS containing the verification code."} />
+                <OTPNumbers />
             </SafeAreaView>
         )
     }
