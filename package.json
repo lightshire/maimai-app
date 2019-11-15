@@ -15,6 +15,7 @@
     ]
   },
   "dependencies": {
+    "@react-native-community/async-storage": "^1.6.3",
     "@types/axios": "^0.14.0",
     "@types/react-native-fbsdk": "^1.0.0",
     "@types/react-native-loading-spinner-overlay": "^0.5.1",

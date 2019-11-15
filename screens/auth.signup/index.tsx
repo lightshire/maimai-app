@@ -19,6 +19,7 @@ import colors from "../../utilities/branding/colors";
 import loginByFacebook from "../../utilities/requests/loginByFacebook";
 import {Navigation} from "react-native-navigation";
 import register from "../../utilities/requests/register";
+import AsyncStorage from "@react-native-community/async-storage";
 
 const StyledSafeAreaView = styled.KeyboardAvoidingView`
     justify-content: center;
@@ -87,14 +88,20 @@ class AuthSignupScreen extends React.Component<Props, State> {
                                 // @todo - clean this up
                                 data = await loginByFacebook(values)
                             } else {
-                                console.log(values)
                                 data = await register(values)
                             }
 
                             this.setState({ isLoading: false })
+
+                            try {
+                                await AsyncStorage.setItem('@access_token', data.data.accessToken);
+                            } catch (e) {
+
+                            }
+
                             Navigation.push(this.props.componentId, {
                                 component: {
-                                    name: "app.home"
+                                    name: values.source === "facebook" ? "app.home" : "auth.otp"
                                 }
                             })
                         }}
