@@ -87,6 +87,7 @@ class AuthSignupScreen extends React.Component<Props, State> {
                                 // @todo - clean this up
                                 data = await loginByFacebook(values)
                             } else {
+                                console.log(values)
                                 data = await register(values)
                             }
 
@@ -104,12 +105,12 @@ class AuthSignupScreen extends React.Component<Props, State> {
                                     <Spinner
                                         visible={this.state.isLoading}
                                     />
-                                    <AuthInputText inputProps={{value: props.values.name, placeholder: "Name", onChange: props.handleChange('name')}}
+                                    <AuthInputText inputProps={{value: props.values.name, placeholder: "Name", onChangeText: (text) => props.setFieldValue('name', text) }}
                                                    icon={<UserIcon/>}/>
                                     <AuthInputText
-                                        inputProps={{value: props.values.phone_number, placeholder: "Mobile No", onChange: props.handleChange('phone_number')}}
+                                        inputProps={{value: props.values.phone_number, placeholder: "Mobile No", onChangeText: (text) => props.setFieldValue('phone_number', text)}}
                                         icon={<PhoneIcon/>}/>
-                                    <AuthInputText inputProps={{value: props.values.password, placeholder: "Password", onChange: props.handleChange('password')}}
+                                    <AuthInputText inputProps={{secureTextEntry: true, value: props.values.password, placeholder: "Password", onChangeText: (text) => props.setFieldValue('password', text)}}
                                                    icon={<LockIcon/>}/>
                                     <SubmitButtons>
                                         <AuthSubmitButton isLoading={this.state.isLoading || props.isSubmitting} onPress={() => props.submitForm()} />
