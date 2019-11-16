@@ -7,6 +7,7 @@ import MaimaiPrimaryButton from "../../components/maimai.button.primary";
 import colors from "../../utilities/branding/colors";
 import AuthFacebookButton from "../../components/auth.button.facebook";
 import AuthGoogleButton from "../../components/auth.button.google";
+import {Navigation} from "react-native-navigation";
 
 const { height } = Dimensions.get("window")
 
@@ -77,7 +78,28 @@ const AuthHeaderContainer = styled.View`
     margin-top: 24px;
 `
 
-class AuthHomeScreen extends React.Component {
+interface Props {
+    componentId: string
+}
+
+class AuthHomeScreen extends React.Component<Props> {
+
+    handleLogin = () => {
+        Navigation.push(this.props.componentId, {
+            component: {
+                name: "auth.login"
+            }
+        })
+    }
+
+    handleRegister = () => {
+        Navigation.push(this.props.componentId, {
+            component: {
+                name: "auth.signup"
+            }
+        });
+    }
+
     render() {
         return (
             <SafeAreaView>
@@ -91,8 +113,8 @@ class AuthHomeScreen extends React.Component {
                                         subText={"Reimagine your selling tactics! Learn how to make the most of MaiMai's selling platform and start earning."}/>
                         </AuthHeaderContainer>
                         <ButtonGroup>
-                            <MaimaiPrimaryButton text={"Login"}/>
-                            <MaimaiPrimaryButton text={"Sign Up"} ghost/>
+                            <MaimaiPrimaryButton text={"Login"} onPress={this.handleLogin} />
+                            <MaimaiPrimaryButton text={"Sign Up"} ghost onPress={this.handleRegister}/>
                         </ButtonGroup>
                         <SocialMediaGroup>
                             <SocialMediaText>or via social media</SocialMediaText>
